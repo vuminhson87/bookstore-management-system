@@ -1,0 +1,23 @@
+# Tệp hệ thống và tệp tạm
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Tệp cấu hình riêng
+.env
+.env.local
+.env.*.local
+
+# Thư mục của trình soạn thảo
+.vscode/
+.idea/
+
+# Thư viện và kết quả biên dịch Frontend
+node_modules/
+dist/
+build/
+
+# Kết quả biên dịch Backend
+target/
+*.class
