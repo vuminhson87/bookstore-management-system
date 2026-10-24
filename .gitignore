@@ -21,3 +21,6 @@ build/
 # Kết quả biên dịch Backend
 target/
 *.class
+
+# Ket qua kiem thu
+coverage/
