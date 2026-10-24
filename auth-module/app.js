@@ -4,11 +4,17 @@ const { register, login } = require('./services/authService');
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '10kb' }));
 
 app.post('/api/auth/register', (req, res) => {
   try {
-    const { username, password } = req.body || {};
+    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
+      return res.status(400).json({
+        message: 'Dữ liệu yêu cầu không hợp lệ',
+      });
+    }
+
+    const { username, password } = req.body;
     const user = register(username, password);
 
     return res.status(201).json({
@@ -32,7 +38,12 @@ app.post('/api/auth/register', (req, res) => {
 
 app.post('/api/auth/login', (req, res) => {
   try {
-    const { username, password } = req.body || {};
+    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
+      return res.status(400).json({
+        message: 'Dữ liệu yêu cầu không hợp lệ',
+      });
+    }
+    const { username, password } = req.body;
     const user = login(username, password);
 
     return res.status(200).json({

@@ -76,4 +76,31 @@ describe('Authentication API', () => {
 
         expect(response.status).toBe(400);
     });
+    test('Đăng ký từ chối dữ liệu JSON dạng mảng', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send([{ username: 'testuser', password: '123456' }]);
+
+        expect(response.status).toBe(400);
+        expect(response.body.message).toBe('Dữ liệu yêu cầu không hợp lệ');
+    });
+
+    test('Đăng nhập từ chối dữ liệu JSON dạng mảng', async () => {
+        const response = await request(app)
+            .post('/api/auth/login')
+            .send([{ username: 'testuser', password: '123456' }]);
+
+        expect(response.status).toBe(400);
+        expect(response.body.message).toBe('Dữ liệu yêu cầu không hợp lệ');
+    });
+    test('Đăng ký từ chối tên đăng nhập chỉ chứa khoảng trắng', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send({
+                username: '   ',
+                password: '123456',
+            });
+
+        expect(response.status).toBe(400);
+    });
 });
